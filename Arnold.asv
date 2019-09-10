@@ -1,0 +1,23 @@
+function [ data_out ] = Arnold( data, iter )
+% Funkcja przeprowadzajaca operacje "Arnold Scrambling Transform"
+
+data_size = size(image,1);
+data_out = zeros(data_size);
+A=[1,1;1,2];
+
+for i = 1:iter
+    for x = 0:(data_size-1)
+       for y = 0:(data_size-1)
+           temp = A * [x;y];
+           data_out(mod(temp(1),iter)+1,mod(temp(2),iter)+1) = data(x+1,y+1);
+       end
+    end
+    display(data_out);
+    data = data_out;
+end
+figure(1);
+data_out = uint8(data_out);
+imshow(data_out);
+
+
+end

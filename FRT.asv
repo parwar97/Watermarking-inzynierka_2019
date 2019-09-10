@@ -1,6 +1,0 @@
-function [ out ] = FRT( in )
-out=ones(1,N);
-
-
-end
-
