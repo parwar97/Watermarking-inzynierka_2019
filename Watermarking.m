@@ -18,9 +18,7 @@ while 1
     end
 end
 data = ArrayIntoMatrix(data);
-[r,l,m] = frit(data,8,'db1');
-[H,G] = wfilters('db1','d');
-
-
-
-%[U,S,V] = svd(data);
+[r,l,m] = frit(data,1,'db1');
+r = r(1:200,1:200);
+%insert_watermark(r,watermark);
+[U,S,V] = svd(r);
