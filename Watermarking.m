@@ -3,7 +3,8 @@ clc;
 %------------DEKLARACJA ZMIENNYCH-------------
  
 Key = 20;
-alfa = 0.0001;
+alfa = 0.00005;
+
 %---------------------------------------------
 
 
@@ -27,6 +28,7 @@ end
 % Poczatek algorytmu
 figure('Name','Original signal','NumberTitle','off');
 stem(data)
+dataXX=data;
 data = ArrayIntoMatrix(data); % Upakuj dane w macierz kwadratow¹ p x p; p - liczba pierwsza
 [r,l,m] = frit(data,1,'db1'); % Wykonaj FRT oraz DWT pierwszego poziomu
 LL = r(1:l(1),1:l(1)); % Wyodrebnij podpasmo LL
@@ -59,4 +61,12 @@ data_out2 = data_out2';
 data_out2(:,2) = data_out2;
 figure('Name','Signal in time after watermark procedure','NumberTitle','off')
 stem(data_out2(:,1))
+save('S_matrix','data_out2', '-append');
 audiowrite('zapis.m4a',data_out2,fs);
+
+%SNR
+data_out_SNR = data_out2(1:length(dataXX))';
+licznik = dataXX.*dataXX;
+mianownik = (dataXX - data_out_SNR).*(dataXX - data_out_SNR);
+wynik = 10*log10(sum(licznik)/sum(mianownik));
+display(wynik);
