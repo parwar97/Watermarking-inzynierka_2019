@@ -1,6 +1,7 @@
-function [data ] = getSamples()
-[data,fs]=audioread('Nagranie (33).m4a', [1 inf]);
+function [data , fs] = getSamples()
+[data,fs]=audioread('Nagranie.m4a');
 %sound(data,fs);
-data = reshape(data,[size(data,1)*size(data,2) ,1]);
+data = data(:,1);
+display(data)
 end
 

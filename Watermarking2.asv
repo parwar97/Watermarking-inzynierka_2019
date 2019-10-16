@@ -1,0 +1,16 @@
+clear all;
+clc;
+%------------DEKLARACJA ZMIENNYCH-------------
+ 
+Key = 20;
+alfa = 0.00005;
+%---------------------------------------------
+
+[data, fs] = getSamples();
+data = ArrayIntoMatrix(data);
+[r,l,m] = frit(data,1,'db1');
+LL = r(1:l(1),1:l(1));
+[U,S,V] = svd(LL); % Operacja SVD
+Sp = load('S_matrix.mat','S');
+EW = extract_enwatermark(Sp.S,S,alfa);
+out0 = uint8(out);
