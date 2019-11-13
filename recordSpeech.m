@@ -1,4 +1,4 @@
-function [ data ] = recordSpeech()
+function [ data, fs ] = recordSpeech()
 %recordSpeech Summary 
 %   Funkcja korzystaj¹c z audiorecordera pozwala u¿ytkownikowi nagraæ
 %   próbkê swojego g³osu. 
@@ -16,7 +16,8 @@ while(1)
     end
 end
 disp('Nagrywanie rozpoczyna siê... ')
-recObj = audiorecorder;
+fs = 48000;
+recObj = audiorecorder(fs,16,1);
 recordblocking(recObj,x);
 play(recObj);
 data= getaudiodata(recObj);
