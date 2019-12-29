@@ -1,18 +1,20 @@
 clear all;
 clc;
 clf;
+close all;
 %------------DEKLARACJA ZMIENNYCH-------------
  
-k = 500;
-K=500;
+k = 120; % rzadkosc sygna³u, dla cosamp musi byæ mniejsza ni¿ K/3
+K=400;
+iter = 300; % ilosc powtórzeñ dla cosamp
     %flagi
-vtrans = 3;
+vtrans = 2;
     % 0 dla dct
     % 1 dla fft
     % 2 dla dwt
     % 3 dla svd
-    vOMP = 1;
-    vCosamp = 0;
+    vOMP = 0;
+    vCosamp = 1;
 %---------------------------------------------
 
 
@@ -53,9 +55,7 @@ if (vOMP==1)
 end
 
 if (vCosamp ==1)
-    opts = [];
-    opts.addK = k;
-    [xc,r] = CoSaMP2(A,y,k,[],opts);
+    [xc,r,normR,residHist,errHist] = ownCOSAMP(A,y,k,iter);
 end
 
 switch(vtrans)
